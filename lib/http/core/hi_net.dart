@@ -1,3 +1,4 @@
+import 'package:flutter_bilibili/http/core/dio_adapter.dart';
 import 'package:flutter_bilibili/http/core/hi_error.dart';
 import 'package:flutter_bilibili/http/core/hi_net_adapter.dart';
 import 'package:flutter_bilibili/http/core/mock_adapter.dart';
@@ -62,16 +63,11 @@ class HiNet {
   Future<dynamic> send<T>(BaseRequest request) async {
     printLog('url:${request.url()}');
 
-    /// 使用Mock发送请求
-    HiNetAdapter adapter = MockAdapter();
+    /// 使用 Mock 发送请求
+    // HiNetAdapter adapter = MockAdapter();
+    /// 使用 Dio 发送请求
+    HiNetAdapter adapter = DioAdapter();
     return adapter.send(request);
-    /* printLog('method:${request.httpMethod()}');
-    request.addHeader('token', '123');
-    printLog('header:${request.header}');
-    return Future.value({
-      'statusCode': 200,
-      'data': {'code': 0, 'message': 'success'}
-    }); */
   }
 
   void printLog(log) {
