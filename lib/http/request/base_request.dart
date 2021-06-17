@@ -4,22 +4,23 @@ enum HttpMethod { GET, POST, DELETE }
 abstract class BaseRequest {
   var pathParams;
   var useHttps = true;
-  Map<String, String> params = Map();
+
   Map<String, dynamic> header = Map();
-
-  // http 方法
-  HttpMethod httpMethod();
-
-  // 路径
-  String path();
-
-  // 是否需要登录
-  bool needLogin();
+  Map<String, String> params = Map();
 
   // 获取接口地址
   String authority() {
     return 'api.devio.org';
   }
+
+  // http 方法
+  HttpMethod httpMethod();
+
+  // 是否需要登录
+  bool needLogin();
+
+  // 路径
+  String path();
 
   // 拼接 url
   String url() {
@@ -35,9 +36,9 @@ abstract class BaseRequest {
     }
     // http 和 https 切换
     if (useHttps) {
-      uri = Uri.https(authority(), pathStr, pathParams);
+      uri = Uri.https(authority(), pathStr, params);
     } else {
-      uri = Uri.http(authority(), pathStr, pathParams);
+      uri = Uri.http(authority(), pathStr, params);
     }
     print('url:${uri.toString()}');
     return uri.toString();
