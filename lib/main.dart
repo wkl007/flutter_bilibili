@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bilibili/http/core/hi_error.dart';
 import 'package:flutter_bilibili/http/core/hi_net.dart';
 import 'package:flutter_bilibili/http/request/test_request.dart';
+import 'package:flutter_bilibili/model/result.dart';
 
 void main() {
   runApp(MyApp());
@@ -44,6 +45,15 @@ class _MyHomePageState extends State<MyHomePage> {
     } on HiNetError catch (e) {
       print(e);
     }
+    var json = {
+      "code": 0,
+      "method": "GET",
+      "requestParams": "dd",
+    };
+    Result res = Result.fromJson(json);
+    print(res.requestParams);
+    print(res.code);
+    print(res.method);
   }
 
   @override
