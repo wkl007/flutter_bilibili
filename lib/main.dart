@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bilibili/http/core/hi_error.dart';
-import 'package:flutter_bilibili/http/core/hi_net.dart';
-import 'package:flutter_bilibili/http/request/test_request.dart';
-import 'package:flutter_bilibili/model/result.dart';
+import 'package:flutter_bilibili/db/hi_cache.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,27 +30,17 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  @override
+  void initState() {
+    super.initState();
+    HiCache.preInit();
+  }
+
   void _incrementCounter() async {
-    TestRequest request = TestRequest();
-    request.add('aa', 'ddd').add('bb', '333').add('requestPrams', '123');
-    try {
-      var result = await HiNet.getInstance().fire(request);
-    } on NeedAuth catch (e) {
-      print(e);
-    } on NeedLogin catch (e) {
-      print(e);
-    } on HiNetError catch (e) {
-      print(e);
-    }
-    var json = {
-      "code": 0,
-      "method": "GET",
-      "requestParams": "dd",
-    };
-    Result res = Result.fromJson(json);
-    print(res.requestParams);
-    print(res.code);
-    print(res.method);
+    HiCache.getInstance().setString('name', 'wkl');
+
+    String value = HiCache.getInstance().get('name');
+    print('value:$value');
   }
 
   @override
