@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bilibili/db/hi_cache.dart';
 import 'package:flutter_bilibili/http/core/hi_error.dart';
-import 'package:flutter_bilibili/http/dao/login_dao.dart';
+
+import 'http/core/hi_net.dart';
+import 'http/request/notice_request.dart';
 
 void main() {
   runApp(MyApp());
@@ -40,12 +42,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() async {
     try {
-      var result = await LoginDao.login('18404969231', 'wkl123456');
+      // await LoginDao.login('18404969231', 'wkl123456');
+      var result = HiNet.getInstance().fire(NoticeRequest());
       print(result);
+    } on NeedLogin catch (e) {
+      print(e);
     } on NeedAuth catch (e) {
       print(e);
     } on HiNetError catch (e) {
-      print(e);
+      print(e.message);
     }
   }
 

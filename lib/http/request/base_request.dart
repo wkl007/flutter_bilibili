@@ -1,3 +1,5 @@
+import 'package:flutter_bilibili/http/dao/login_dao.dart';
+
 enum HttpMethod { GET, POST, DELETE }
 
 /// 基础请求
@@ -39,6 +41,11 @@ abstract class BaseRequest {
       uri = Uri.https(authority(), pathStr, params);
     } else {
       uri = Uri.http(authority(), pathStr, params);
+    }
+    var boardingPass = LoginDao.getBoardingPass();
+    if (needLogin() && boardingPass != null) {
+      // 给需要登录的接口携带登录令牌
+      addHeader(LoginDao.BOARDING_PASS, boardingPass);
     }
     return uri.toString();
   }

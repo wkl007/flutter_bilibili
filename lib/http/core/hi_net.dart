@@ -1,7 +1,6 @@
 import 'package:flutter_bilibili/http/core/dio_adapter.dart';
 import 'package:flutter_bilibili/http/core/hi_error.dart';
 import 'package:flutter_bilibili/http/core/hi_net_adapter.dart';
-import 'package:flutter_bilibili/http/core/mock_adapter.dart';
 import 'package:flutter_bilibili/http/request/base_request.dart';
 
 /// 1.支持网络库插拔设计，且不干扰业务层
@@ -61,7 +60,7 @@ class HiNet {
   }
 
   Future<dynamic> send<T>(BaseRequest request) async {
-    printLog('url:${request.url()}');
+    // printLog('url:${request.url()}');
 
     /// 使用 Mock 发送请求
     // HiNetAdapter adapter = MockAdapter();
