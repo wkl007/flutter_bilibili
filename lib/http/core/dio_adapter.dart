@@ -17,6 +17,7 @@ class DioAdapter extends HiNetAdapter {
         case HttpMethod.POST:
           response = await Dio()
               .post(request.url(), data: request.params, options: options);
+          print(123);
           break;
         case HttpMethod.DELETE:
           response = await Dio()
@@ -38,12 +39,14 @@ class DioAdapter extends HiNetAdapter {
   /// 构建HiNetResponse
   Future<HiNetResponse<T>> buildRes<T>(
       Response? response, BaseRequest request) {
-    return Future.value(HiNetResponse(
-      data: response?.data,
-      request: request,
-      statusCode: response?.statusCode,
-      statusMessage: response?.statusMessage,
-      extra: response,
-    ));
+    return Future.value(
+      HiNetResponse(
+        data: response?.data,
+        request: request,
+        statusCode: response?.statusCode,
+        statusMessage: response?.statusMessage,
+        extra: response,
+      ),
+    );
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bilibili/db/hi_cache.dart';
+import 'package:flutter_bilibili/http/core/hi_error.dart';
+import 'package:flutter_bilibili/http/dao/login_dao.dart';
 
 void main() {
   runApp(MyApp());
@@ -37,10 +39,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _incrementCounter() async {
-    HiCache.getInstance().setString('name', 'wkl');
-
-    String value = HiCache.getInstance().get('name');
-    print('value:$value');
+    try {
+      var result = await LoginDao.login('18404969231', 'wkl123456');
+      print(result);
+    } on NeedAuth catch (e) {
+      print(e);
+    } on HiNetError catch (e) {
+      print(e);
+    }
   }
 
   @override
