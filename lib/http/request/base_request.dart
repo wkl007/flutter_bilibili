@@ -1,4 +1,5 @@
 import 'package:flutter_bilibili/http/dao/login_dao.dart';
+import 'package:flutter_bilibili/util/hi_constants.dart';
 
 enum HttpMethod { GET, POST, DELETE }
 
@@ -7,7 +8,11 @@ abstract class BaseRequest {
   var pathParams;
   var useHttps = true;
 
-  Map<String, dynamic> header = Map();
+  Map<String, dynamic> header = {
+    HiConstants.authTokenK: HiConstants.authTokenV,
+    HiConstants.courseFlagK: HiConstants.courseFlagV
+  };
+
   Map<String, String> params = Map();
 
   // 获取接口地址
@@ -37,16 +42,24 @@ abstract class BaseRequest {
       }
     }
     // http 和 https 切换
+    bool flag = isEmpty(params);
     if (useHttps) {
-      uri = Uri.https(authority(), pathStr, params);
+      uri = !flag
+          ? Uri.https(authority(), pathStr, params)
+          : Uri.https(authority(), pathStr);
     } else {
-      uri = Uri.http(authority(), pathStr, params);
+      uri = !flag
+          ? Uri.http(authority(), pathStr, params)
+          : Uri.http(authority(), pathStr);
     }
     var boardingPass = LoginDao.getBoardingPass();
     if (needLogin() && boardingPass != null) {
       // 给需要登录的接口携带登录令牌
       addHeader(LoginDao.BOARDING_PASS, boardingPass);
     }
+    print('请求url:$uri');
+    print('请求头:$header');
+    print('请求参:$params');
     return uri.toString();
   }
 
@@ -60,5 +73,17 @@ abstract class BaseRequest {
   BaseRequest addHeader(String k, Object v) {
     header[k] = v.toString();
     return this;
+  }
+
+  // 检查对象或 List 或 Map 是否为空
+  bool isEmpty(Object object) {
+    if (object is String && object.isEmpty) {
+      return true;
+    } else if (object is List && object.isEmpty) {
+      return true;
+    } else if (object is Map && object.isEmpty) {
+      return true;
+    }
+    return false;
   }
 }

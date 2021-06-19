@@ -37,7 +37,8 @@ class HiNet {
       printLog(error);
     }
     var result = response?.data;
-    printLog(result);
+    print('请求结果:$result');
+    print('------------------');
     var status = response?.statusCode;
     var hiError;
     switch (status) {

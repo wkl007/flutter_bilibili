@@ -2,16 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bilibili/http/core/hi_error.dart';
 import 'package:flutter_bilibili/http/core/hi_net_adapter.dart';
 import 'package:flutter_bilibili/http/request/base_request.dart';
-import 'package:flutter_bilibili/util/hi_constants.dart';
 
 /// dio 适配器
 class DioAdapter extends HiNetAdapter {
   @override
   Future<HiNetResponse<T>> send<T>(BaseRequest request) async {
-    var response,
-        options =
-            Options(headers: {...HiConstants.headers(), ...request.header});
-    print(options.headers.toString());
+    var response, options = Options(headers: request.header);
     var error;
     try {
       switch (request.httpMethod()) {
