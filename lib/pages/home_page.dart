@@ -22,10 +22,10 @@ class _HomePageState extends HiState<HomePage>
   TabController? _controller;
 
   /// 类别列表
-  List<CategoryList> categoryList = [];
+  List<CategoryModel> categoryList = [];
 
   /// 轮播图列表
-  List<BannerList> bannerList = [];
+  List<BannerModel> bannerList = [];
 
   /// 加载状态
   bool _isLoading = true;

@@ -9,33 +9,33 @@ class HomeModel {
   });
 
   factory HomeModel.fromJson(Map<String, dynamic> jsonRes) {
-    final List<BannerList>? bannerList =
-        jsonRes['bannerList'] is List ? <BannerList>[] : null;
+    final List<BannerModel>? bannerList =
+        jsonRes['bannerList'] is List ? <BannerModel>[] : null;
     if (bannerList != null) {
       for (final dynamic item in jsonRes['bannerList']!) {
         if (item != null) {
-          bannerList.add(BannerList.fromJson(asT<Map<String, dynamic>>(item)!));
+          bannerList.add(BannerModel.fromJson(asT<Map<String, dynamic>>(item)!));
         }
       }
     }
 
-    final List<CategoryList>? categoryList =
-        jsonRes['categoryList'] is List ? <CategoryList>[] : null;
+    final List<CategoryModel>? categoryList =
+        jsonRes['categoryList'] is List ? <CategoryModel>[] : null;
     if (categoryList != null) {
       for (final dynamic item in jsonRes['categoryList']!) {
         if (item != null) {
           categoryList
-              .add(CategoryList.fromJson(asT<Map<String, dynamic>>(item)!));
+              .add(CategoryModel.fromJson(asT<Map<String, dynamic>>(item)!));
         }
       }
     }
 
-    final List<VideoList>? videoList =
-        jsonRes['videoList'] is List ? <VideoList>[] : null;
+    final List<VideoModel>? videoList =
+        jsonRes['videoList'] is List ? <VideoModel>[] : null;
     if (videoList != null) {
       for (final dynamic item in jsonRes['videoList']!) {
         if (item != null) {
-          videoList.add(VideoList.fromJson(asT<Map<String, dynamic>>(item)!));
+          videoList.add(VideoModel.fromJson(asT<Map<String, dynamic>>(item)!));
         }
       }
     }
@@ -46,9 +46,9 @@ class HomeModel {
     );
   }
 
-  List<BannerList>? bannerList;
-  List<CategoryList>? categoryList;
-  List<VideoList> videoList;
+  List<BannerModel>? bannerList;
+  List<CategoryModel>? categoryList;
+  List<VideoModel> videoList;
 
   @override
   String toString() {
@@ -65,8 +65,8 @@ class HomeModel {
       asT<Map<String, dynamic>>(jsonDecode(jsonEncode(this)))!);
 }
 
-class BannerList {
-  BannerList({
+class BannerModel {
+  BannerModel({
     required this.id,
     required this.sticky,
     required this.type,
@@ -77,7 +77,7 @@ class BannerList {
     required this.createTime,
   });
 
-  factory BannerList.fromJson(Map<String, dynamic> jsonRes) => BannerList(
+  factory BannerModel.fromJson(Map<String, dynamic> jsonRes) => BannerModel(
         id: asT<String>(jsonRes['id'])!,
         sticky: asT<int>(jsonRes['sticky'])!,
         type: asT<String>(jsonRes['type'])!,
@@ -113,17 +113,17 @@ class BannerList {
         'createTime': createTime,
       };
 
-  BannerList clone() => BannerList.fromJson(
+  BannerModel clone() => BannerModel.fromJson(
       asT<Map<String, dynamic>>(jsonDecode(jsonEncode(this)))!);
 }
 
-class CategoryList {
-  CategoryList({
+class CategoryModel {
+  CategoryModel({
     required this.name,
     required this.count,
   });
 
-  factory CategoryList.fromJson(Map<String, dynamic> jsonRes) => CategoryList(
+  factory CategoryModel.fromJson(Map<String, dynamic> jsonRes) => CategoryModel(
         name: asT<String>(jsonRes['name'])!,
         count: asT<int>(jsonRes['count'])!,
       );
@@ -141,33 +141,33 @@ class CategoryList {
         'count': count,
       };
 
-  CategoryList clone() => CategoryList.fromJson(
+  CategoryModel clone() => CategoryModel.fromJson(
       asT<Map<String, dynamic>>(jsonDecode(jsonEncode(this)))!);
 }
 
-class VideoList {
-  VideoList({
-    required this.id,
+class VideoModel {
+  VideoModel({
+    this.id,
     required this.vid,
-    required this.title,
-    required this.tname,
-    required this.url,
-    required this.cover,
-    required this.pubdate,
-    required this.desc,
-    required this.view,
-    required this.duration,
-    required this.owner,
-    required this.reply,
-    required this.favorite,
-    required this.like,
-    required this.coin,
-    required this.share,
-    required this.createTime,
-    required this.size,
+    this.title,
+    this.tname,
+     this.url,
+     this.cover,
+     this.pubdate,
+     this.desc,
+     this.view,
+     this.duration,
+     this.owner,
+     this.reply,
+     this.favorite,
+     this.like,
+     this.coin,
+     this.share,
+     this.createTime,
+     this.size,
   });
 
-  factory VideoList.fromJson(Map<String, dynamic> jsonRes) => VideoList(
+  factory VideoModel.fromJson(Map<String, dynamic> jsonRes) => VideoModel(
         id: asT<String>(jsonRes['id'])!,
         vid: asT<String>(jsonRes['vid'])!,
         title: asT<String>(jsonRes['title'])!,
@@ -188,24 +188,24 @@ class VideoList {
         size: asT<int>(jsonRes['size'])!,
       );
 
-  String id;
+  String? id;
   String vid;
-  String title;
-  String tname;
-  String url;
-  String cover;
-  int pubdate;
-  String desc;
-  int view;
-  int duration;
-  Owner owner;
-  int reply;
-  int favorite;
-  int like;
-  int coin;
-  int share;
-  String createTime;
-  int size;
+  String? title;
+  String? tname;
+  String? url;
+  String? cover;
+  int? pubdate;
+  String? desc;
+  int? view;
+  int? duration;
+  Owner? owner;
+  int? reply;
+  int? favorite;
+  int? like;
+  int? coin;
+  int? share;
+  String? createTime;
+  int? size;
 
   @override
   String toString() {
@@ -233,7 +233,7 @@ class VideoList {
         'size': size,
       };
 
-  VideoList clone() => VideoList.fromJson(
+  VideoModel clone() => VideoModel.fromJson(
       asT<Map<String, dynamic>>(jsonDecode(jsonEncode(this)))!);
 }
 

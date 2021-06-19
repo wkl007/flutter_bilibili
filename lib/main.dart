@@ -15,7 +15,7 @@ import 'package:flutter_bilibili/pages/video_detail_page.dart';
 import 'package:flutter_bilibili/util/color.dart';
 import 'package:flutter_bilibili/util/toast.dart';
 
-import 'model/video_model.dart';
+import 'model/home_model.dart';
 
 void main() {
   runApp(BiliApp());
@@ -68,7 +68,7 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
         onJumpTo: (RouteStatus routeStatus, {Map? args}) {
           _routeStatus = routeStatus;
           if (routeStatus == RouteStatus.detail) {
-            this.videoModel = args!['videoMo'];
+            this.videoInfo = args!['videoInfo'];
           }
           notifyListeners();
         },
@@ -79,7 +79,8 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
   RouteStatus _routeStatus = RouteStatus.home;
   List<MaterialPage> pages = [];
 
-  VideoModel? videoModel;
+  /// 详情视频信息
+  VideoModel? videoInfo;
 
   RouteStatus get routeStatus {
     if (_routeStatus != RouteStatus.registration && !hasLogin) {
@@ -108,7 +109,7 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
     } else if (routeStatus == RouteStatus.darkMode) {
       page = pageWrap(DarkModelPage());
     } else if (routeStatus == RouteStatus.detail) {
-      page = pageWrap(VideoDetailPage());
+      page = pageWrap(VideoDetailPage(videoInfo!));
     } else if (routeStatus == RouteStatus.registration) {
       page = pageWrap(RegistrationPage());
     } else if (routeStatus == RouteStatus.notice) {

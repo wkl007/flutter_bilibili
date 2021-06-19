@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bilibili/model/home_model.dart';
 
 /// 视频详情页
 class VideoDetailPage extends StatefulWidget {
-  const VideoDetailPage({Key? key}) : super(key: key);
+  final VideoModel videoInfo;
+
+  const VideoDetailPage(this.videoInfo, {Key? key}) : super(key: key);
 
   @override
   _VideoDetailPageState createState() => _VideoDetailPageState();
