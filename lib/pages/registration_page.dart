@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bilibili/widgets/appbar.dart';
+import 'package:flutter_bilibili/widgets/login_button.dart';
+import 'package:flutter_bilibili/widgets/login_effect.dart';
 import 'package:flutter_bilibili/widgets/login_input.dart';
 
 /// 注册页面
@@ -21,10 +24,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: appBar('注册', '登录', () {}),
       body: Container(
         // 自适应键盘弹起，防止遮挡
         child: ListView(
           children: [
+            LoginEffect(protect: protect),
             LoginInput(
               '用户名',
               '请输入用户名',
@@ -76,6 +81,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 orderId = text;
               },
             ),
+            Padding(
+              padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+              child: LoginButton(
+                '注册',
+                enable: loginEnable,
+              ),
+            )
           ],
         ),
       ),

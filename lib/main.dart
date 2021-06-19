@@ -5,6 +5,7 @@ import 'package:flutter_bilibili/http/core/hi_net.dart';
 import 'package:flutter_bilibili/http/dao/login_dao.dart';
 import 'package:flutter_bilibili/http/request/notice_request.dart';
 import 'package:flutter_bilibili/pages/registration_page.dart';
+import 'package:flutter_bilibili/util/color.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: white,
       ),
       home: RegistrationPage(),
     );
