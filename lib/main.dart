@@ -40,10 +40,10 @@ class _BiliAppState extends State<BiliApp> {
         var widget = snapshot.connectionState == ConnectionState.done
             ? Router(routerDelegate: _routeDelegate)
             : Scaffold(
-          body: Center(
-            child: CircularProgressIndicator(),
-          ),
-        );
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
 
         return MaterialApp(
           home: widget,
@@ -61,7 +61,21 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
   final GlobalKey<NavigatorState> navigatorKey;
 
   // 为 Navigator 设置一个 key，必要时可以通过navigatorKey.currentState 来获取到 navigatorState 对象
-  BiliRouteDelegate() : navigatorKey = GlobalKey<NavigatorState>();
+  BiliRouteDelegate() : navigatorKey = GlobalKey<NavigatorState>() {
+    // 实现路由跳转逻辑
+    HiNavigator.getInstance().registerRouteJump(
+      RouteJumpListener(
+        onJumpTo: (RouteStatus routeStatus, {Map? args}) {
+          _routeStatus = routeStatus;
+          if (routeStatus == RouteStatus.detail) {
+            this.videoModel = args!['videoMo'];
+          }
+          notifyListeners();
+        },
+      ),
+    );
+  }
+
   RouteStatus _routeStatus = RouteStatus.home;
   List<MaterialPage> pages = [];
 
@@ -96,12 +110,7 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
     } else if (routeStatus == RouteStatus.detail) {
       page = pageWrap(VideoDetailPage(videoModel: videoModel!));
     } else if (routeStatus == RouteStatus.registration) {
-      page = pageWrap(RegistrationPage(
-        onJumpToLogin: () {
-          _routeStatus = RouteStatus.login;
-          notifyListeners();
-        },
-      ));
+      page = pageWrap(RegistrationPage());
     } else if (routeStatus == RouteStatus.notice) {
       page = pageWrap(NoticePage());
     } else if (routeStatus == RouteStatus.login) {
@@ -116,7 +125,7 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
     return WillPopScope(
       // fix Android物理返回键，无法返回上一页问题@https://github.com/flutter/flutter/issues/66349
       onWillPop: () async =>
-      !(await navigatorKey.currentState?.maybePop() ?? false),
+          !(await navigatorKey.currentState?.maybePop() ?? false),
       child: Navigator(
         key: navigatorKey,
         pages: pages,

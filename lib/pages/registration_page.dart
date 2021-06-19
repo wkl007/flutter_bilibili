@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bilibili/http/core/hi_error.dart';
 import 'package:flutter_bilibili/http/dao/login_dao.dart';
+import 'package:flutter_bilibili/navigator/hi_navigator.dart';
 import 'package:flutter_bilibili/util/toast.dart';
 import 'package:flutter_bilibili/widgets/appbar.dart';
 import 'package:flutter_bilibili/widgets/login_button.dart';
@@ -10,9 +11,7 @@ import 'package:flutter_bilibili/util/string_util.dart';
 
 /// 注册页面
 class RegistrationPage extends StatefulWidget {
-  final VoidCallback? onJumpToLogin;
-
-  const RegistrationPage({Key? key, this.onJumpToLogin}) : super(key: key);
+  const RegistrationPage({Key? key}) : super(key: key);
 
   @override
   _RegistrationPageState createState() => _RegistrationPageState();
@@ -79,9 +78,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           await LoginDao.registration(userName!, password!, imoocId!, orderId!);
       if (result['code'] == 0) {
         showToast('注册成功');
-        if (widget.onJumpToLogin != null) {
-          widget.onJumpToLogin!();
-        }
+        HiNavigator.getInstance().onJumpTo(RouteStatus.login);
       } else {
         showWarnToast(result['msg']);
       }
@@ -96,9 +93,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar('注册', '登录', () {
-        if (widget.onJumpToLogin != null) {
-          widget.onJumpToLogin!();
-        }
+        HiNavigator.getInstance().onJumpTo(RouteStatus.login);
       }),
       body: Container(
         // 自适应键盘弹起，防止遮挡

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bilibili/http/core/hi_error.dart';
 import 'package:flutter_bilibili/http/dao/login_dao.dart';
+import 'package:flutter_bilibili/navigator/hi_navigator.dart';
 import 'package:flutter_bilibili/util/string_util.dart';
 import 'package:flutter_bilibili/util/toast.dart';
 import 'package:flutter_bilibili/widgets/appbar.dart';
@@ -47,6 +48,7 @@ class _LoginPageState extends State<LoginPage> {
       var result = await LoginDao.login(userName!, password!);
       if (result['code'] == 0) {
         showToast('登录成功');
+        HiNavigator.getInstance().onJumpTo(RouteStatus.home);
       } else {
         showWarnToast(result['msg']);
       }
@@ -60,7 +62,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar('密码登录', '注册', () {}, key: Key('registration')),
+      appBar: appBar('密码登录', '注册', () {
+        HiNavigator.getInstance().onJumpTo(RouteStatus.registration);
+      }, key: Key('registration')),
       body: Container(
         child: ListView(
           children: [
