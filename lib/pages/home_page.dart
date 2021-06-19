@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bilibili/http/core/hi_error.dart';
+import 'package:flutter_bilibili/http/dao/home_dao.dart';
+import 'package:flutter_bilibili/model/home_model.dart';
 import 'package:flutter_bilibili/navigator/hi_navigator.dart';
 import 'package:flutter_bilibili/pages/home_tab_page.dart';
 import 'package:flutter_bilibili/util/color.dart';
+import 'package:flutter_bilibili/util/toast.dart';
 import 'package:underline_indicator/underline_indicator.dart';
 
 /// 首页
@@ -14,8 +18,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
-  var tabs = ['推荐', '热门', '追播', '影视', '搞笑', '日常', '综合', '手机游戏'];
   TabController? _controller;
+
+  /// 类别列表
+  List<CategoryList> categoryList = [];
+
+  /// 轮播图列表
+  List<BannerList> bannerList = [];
+
+  /// 加载状态
+  bool _isLoading = true;
 
   /// 缓存页面
   @override
@@ -24,7 +36,40 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
-    _controller = TabController(length: tabs.length, vsync: this);
+    _controller = TabController(length: categoryList.length, vsync: this);
+    loadData();
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
+  }
+
+  /// 加载数据
+  void loadData() async {
+    try {
+      HomeModel res = await HomeDao.get('推荐');
+      if (res.categoryList != null) {
+        _controller =
+            TabController(length: res.categoryList?.length ?? 0, vsync: this);
+      }
+      setState(() {
+        categoryList = res.categoryList ?? [];
+        bannerList = res.bannerList ?? [];
+        _isLoading = false;
+      });
+    } on NeedAuth catch (e) {
+      showWarnToast(e.message);
+      setState(() {
+        _isLoading = false;
+      });
+    } on HiNetError catch (e) {
+      showWarnToast(e.message);
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   // 顶部 Tab
@@ -38,12 +83,12 @@ class _HomePageState extends State<HomePage>
         borderSide: BorderSide(color: primary, width: 3),
         insets: EdgeInsets.only(left: 15, right: 15),
       ),
-      tabs: tabs.map<Tab>((tab) {
+      tabs: categoryList.map<Tab>((tab) {
         return Tab(
           child: Padding(
             padding: EdgeInsets.only(left: 5, right: 5),
             child: Text(
-              tab,
+              tab.name,
               style: TextStyle(fontSize: 16),
             ),
           ),
@@ -66,11 +111,14 @@ class _HomePageState extends State<HomePage>
           Flexible(
             child: TabBarView(
               controller: _controller,
-              children: tabs.map((tab) {
-                return HomeTabPage(categoryName: tab);
+              children: categoryList.map((tab) {
+                return HomeTabPage(
+                  categoryName: tab.name,
+                  bannerList: tab.name == '推荐' ? bannerList : null,
+                );
               }).toList(),
             ),
-          )
+          ),
         ],
       ),
     );
