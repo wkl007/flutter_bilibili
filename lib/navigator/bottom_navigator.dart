@@ -31,10 +31,33 @@ class _BottomNavigatorState extends State<BottomNavigator> {
 
   bool _hasBuild = false;
 
+  /// 跳转页面
+  void _onJumpTo(int index, {pageChange = false}) {
+    if (!pageChange) {
+      // 让PageView展示对应tab
+      _controller.jumpToPage(index);
+    } else {
+      HiNavigator.getInstance().onBottomTabChange(index, _pages[index]);
+    }
+    setState(() {
+      //控制选中第一个tab
+      _currentIndex = index;
+    });
+  }
+
+  /// 底部 Item
+  BottomNavigationBarItem _bottomItem(String label, IconData icon, int index) {
+    return BottomNavigationBarItem(
+      label: label,
+      icon: Icon(icon, color: _defaultColor),
+      activeIcon: Icon(icon, color: _activeColor),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     _pages = [
-      HomePage(),
+      HomePage(onJumpTo: (index) => _onJumpTo(index, pageChange: false)),
       RankingPage(),
       FavoritePage(),
       ProfilePage()
@@ -45,30 +68,6 @@ class _BottomNavigatorState extends State<BottomNavigator> {
       HiNavigator.getInstance()
           .onBottomTabChange(initialPage, _pages[initialPage]);
       _hasBuild = true;
-    }
-
-    /// 跳转页面
-    void _onJumpTo(int index, {pageChange = false}) {
-      if (!pageChange) {
-        // 让PageView展示对应tab
-        _controller.jumpToPage(index);
-      } else {
-        HiNavigator.getInstance().onBottomTabChange(index, _pages[index]);
-      }
-      setState(() {
-        //控制选中第一个tab
-        _currentIndex = index;
-      });
-    }
-
-    /// 底部 Item
-    BottomNavigationBarItem _bottomItem(
-        String label, IconData icon, int index) {
-      return BottomNavigationBarItem(
-        label: label,
-        icon: Icon(icon, color: _defaultColor),
-        activeIcon: Icon(icon, color: _activeColor),
-      );
     }
 
     return Scaffold(

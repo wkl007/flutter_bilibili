@@ -7,11 +7,14 @@ import 'package:flutter_bilibili/pages/home_tab_page.dart';
 import 'package:flutter_bilibili/util/color.dart';
 import 'package:flutter_bilibili/util/hi_state.dart';
 import 'package:flutter_bilibili/util/toast.dart';
+import 'package:flutter_bilibili/widgets/navigation_bar.dart';
 import 'package:underline_indicator/underline_indicator.dart';
 
 /// 首页
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final ValueChanged<int>? onJumpTo;
+
+  const HomePage({Key? key, this.onJumpTo}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -73,7 +76,69 @@ class _HomePageState extends HiState<HomePage>
     }
   }
 
-  // 顶部 Tab
+  /// appBar
+  Widget _appBar() {
+    return Padding(
+      padding: EdgeInsets.only(left: 15, right: 15),
+      child: Row(
+        children: [
+          InkWell(
+            onTap: () {
+              if (widget.onJumpTo != null) {
+                widget.onJumpTo!(3);
+              }
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(23),
+              child: Image(
+                height: 46,
+                width: 46,
+                image: AssetImage('assets/images/avatar.png'),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(left: 15, right: 15),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Container(
+                  padding: EdgeInsets.only(left: 10),
+                  height: 32,
+                  alignment: Alignment.centerLeft,
+                  child: Icon(Icons.search, color: Colors.grey),
+                  decoration: BoxDecoration(color: Colors.grey[100]),
+                ),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              // _mockCrash();
+            },
+            child: Icon(
+              Icons.explore_outlined,
+              color: Colors.grey,
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              HiNavigator.getInstance().onJumpTo(RouteStatus.notice);
+            },
+            child: Padding(
+              padding: EdgeInsets.only(left: 12),
+              child: Icon(
+                Icons.mail_outline,
+                color: Colors.grey,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// 顶部 Tab
   Widget _tabBar() {
     return TabBar(
       controller: _controller,
@@ -104,6 +169,12 @@ class _HomePageState extends HiState<HomePage>
     return Scaffold(
       body: Column(
         children: [
+          NavigationBar(
+            child: _appBar(),
+            height: 50,
+            color: Colors.white,
+            statusStyle: StatusStyle.DARK_CONTENT,
+          ),
           Container(
             color: Colors.white,
             padding: EdgeInsets.only(top: 30),
