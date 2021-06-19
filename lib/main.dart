@@ -4,6 +4,7 @@ import 'package:flutter_bilibili/http/core/hi_error.dart';
 import 'package:flutter_bilibili/http/core/hi_net.dart';
 import 'package:flutter_bilibili/http/dao/login_dao.dart';
 import 'package:flutter_bilibili/http/request/notice_request.dart';
+import 'package:flutter_bilibili/pages/login_page.dart';
 import 'package:flutter_bilibili/pages/registration_page.dart';
 import 'package:flutter_bilibili/util/color.dart';
 
@@ -14,12 +15,14 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    HiCache.preInit();
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: white,
       ),
-      home: RegistrationPage(),
+      home: LoginPage(),
     );
   }
 }
@@ -39,7 +42,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    HiCache.preInit();
   }
 
   void _incrementCounter() async {
