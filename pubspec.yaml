@@ -33,6 +33,7 @@ dependencies:
   shared_preferences: ^2.0.6
   fluttertoast: ^8.0.7
   url_launcher: ^6.0.6
+  underline_indicator: ^0.0.4
 
 dev_dependencies:
   build_runner: ^2.0.4

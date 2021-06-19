@@ -532,6 +532,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.3.0"
+  underline_indicator:
+    dependency: "direct main"
+    description:
+      name: underline_indicator
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.4"
   url_launcher:
     dependency: "direct main"
     description:
