@@ -216,6 +216,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.4.0"
+  flutter_nested:
+    dependency: "direct main"
+    description:
+      name: flutter_nested
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter

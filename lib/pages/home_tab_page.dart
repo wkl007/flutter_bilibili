@@ -25,10 +25,14 @@ class _HomeTabPageState extends State<HomeTabPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        if (widget.bannerList != null) _banner(widget.bannerList!),
-      ],
+    return MediaQuery.removePadding(
+      removeTop: true,
+      context: context,
+      child: ListView(
+        children: [
+          if (widget.bannerList != null) _banner(widget.bannerList!),
+        ],
+      ),
     );
   }
 }
