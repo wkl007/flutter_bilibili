@@ -9,7 +9,7 @@ import 'package:flutter_bilibili/widgets/login_effect.dart';
 import 'package:flutter_bilibili/widgets/login_input.dart';
 import 'package:flutter_bilibili/util/string_util.dart';
 
-/// 注册页面
+/// 注册页
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
 

@@ -9,6 +9,7 @@ import 'package:flutter_bilibili/widgets/login_button.dart';
 import 'package:flutter_bilibili/widgets/login_effect.dart';
 import 'package:flutter_bilibili/widgets/login_input.dart';
 
+/// 登录页
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
