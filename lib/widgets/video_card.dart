@@ -24,7 +24,12 @@ class VideoCard extends StatelessWidget {
           right: 0,
           bottom: 0,
           child: Container(
-            padding: EdgeInsets.only(left: 8, right: 8, bottom: 3, top: 5),
+            padding: EdgeInsets.only(
+              left: 8,
+              right: 8,
+              bottom: 3,
+              top: 5,
+            ),
             decoration: BoxDecoration(
               // 渐变
               gradient: LinearGradient(
@@ -65,7 +70,10 @@ class VideoCard extends StatelessWidget {
           padding: EdgeInsets.only(left: 3),
           child: Text(
             views,
-            style: TextStyle(color: Colors.white, fontSize: 10),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+            ),
           ),
         ),
       ],
@@ -76,7 +84,12 @@ class VideoCard extends StatelessWidget {
   _infoText(Color textColor) {
     return Expanded(
       child: Container(
-        padding: EdgeInsets.only(top: 5, left: 8, right: 8, bottom: 5),
+        padding: EdgeInsets.only(
+          top: 5,
+          left: 8,
+          right: 8,
+          bottom: 5,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -85,9 +98,11 @@ class VideoCard extends StatelessWidget {
               videoInfo.title!,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 12, color: textColor),
+              style: TextStyle(
+                fontSize: 12,
+                color: textColor,
+              ),
             ),
-            //作者
             _owner(textColor)
           ],
         ),
@@ -105,13 +120,20 @@ class VideoCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: cachedImage(owner!.face, height: 24, width: 24),
+              child: cachedImage(
+                owner!.face,
+                height: 24,
+                width: 24,
+              ),
             ),
             Padding(
               padding: EdgeInsets.only(left: 8),
               child: Text(
                 owner.name,
-                style: TextStyle(fontSize: 11, color: textColor),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: textColor,
+                ),
               ),
             ),
           ],

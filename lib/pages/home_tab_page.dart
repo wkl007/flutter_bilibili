@@ -21,12 +21,17 @@ class HomeTabPage extends StatefulWidget {
   _HomeTabPageState createState() => _HomeTabPageState();
 }
 
-class _HomeTabPageState extends State<HomeTabPage> {
+class _HomeTabPageState extends State<HomeTabPage>
+    with AutomaticKeepAliveClientMixin {
   /// 视频列表
   List<VideoModel> videoList = [];
 
   /// 第一页
   int pageIndex = 1;
+
+  /// 页面缓存
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -39,8 +44,8 @@ class _HomeTabPageState extends State<HomeTabPage> {
     try {
       if (!loadMore) pageIndex = 1;
       int currentIndex = pageIndex + (loadMore ? 1 : 0);
-      HomeModel res =
-          await HomeDao.get(widget.categoryName, pageIndex: currentIndex,pageSize: 50);
+      HomeModel res = await HomeDao.get(widget.categoryName,
+          pageIndex: currentIndex, pageSize: 50);
       setState(() {
         if (loadMore) {
           videoList = [...videoList, ...res.videoList];

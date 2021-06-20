@@ -9,7 +9,7 @@ Widget cachedImage(String url, {double? width, double? height}) {
     width: width,
     fit: BoxFit.cover,
     placeholder: (BuildContext context, String url) =>
-        Container(color: Colors.grey[200]),
+        Container(color: Colors.grey[200],),
     errorWidget: (
       BuildContext context,
       String url,
