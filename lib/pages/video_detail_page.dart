@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bilibili/http/core/hi_error.dart';
+import 'package:flutter_bilibili/http/dao/favorite_dao.dart';
+import 'package:flutter_bilibili/http/dao/like_dao.dart';
 import 'package:flutter_bilibili/model/home_model.dart';
 import 'package:flutter_bilibili/model/video_detail_model.dart';
 import 'package:flutter_bilibili/util/toast.dart';
@@ -81,14 +83,50 @@ class _VideoDetailPageState extends State<VideoDetailPage>
     }
   }
 
-  /// 点赞
-  _onLike() async {}
+  /// 喜欢
+  _onLike() async {
+    try {
+      await LikeDao.like(videoInfo!.vid, !detailInfo!.isLike);
+      detailInfo!.isLike = !detailInfo!.isLike;
+      if (detailInfo!.isLike) {
+        videoInfo!.like = videoInfo!.like ?? 0 + 1;
+      } else {
+        videoInfo!.like = videoInfo!.like ?? 0 - 1;
+      }
+      setState(() {
+        videoInfo = videoInfo;
+        detailInfo = detailInfo;
+      });
+    } on NeedAuth catch (e) {
+      showWarnToast(e.message);
+    } on HiNetError catch (e) {
+      showWarnToast(e.message);
+    }
+  }
 
-  /// 取消点赞
+  /// 不喜欢
   _onUnLike() async {}
 
   /// 收藏
-  _onFavorite() async {}
+  _onFavorite() async {
+    try {
+      await FavoriteDao.favorite(videoInfo!.vid, !detailInfo!.isFavorite);
+      detailInfo!.isFavorite = !detailInfo!.isFavorite;
+      if (detailInfo!.isFavorite) {
+        videoInfo!.favorite = videoInfo!.favorite ?? 0 + 1;
+      } else {
+        videoInfo!.favorite = videoInfo!.favorite ?? 0 - 1;
+      }
+      setState(() {
+        videoInfo = videoInfo;
+        detailInfo = detailInfo;
+      });
+    } on NeedAuth catch (e) {
+      showWarnToast(e.message);
+    } on HiNetError catch (e) {
+      showWarnToast(e.message);
+    }
+  }
 
   /// 播放器
   Widget _buildVideoView() {
