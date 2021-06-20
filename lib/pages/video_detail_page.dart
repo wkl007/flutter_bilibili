@@ -5,6 +5,7 @@ import 'package:flutter_bilibili/model/home_model.dart';
 import 'package:flutter_bilibili/widgets/appbar.dart';
 import 'package:flutter_bilibili/widgets/hi_tab.dart';
 import 'package:flutter_bilibili/widgets/navigation_bar.dart';
+import 'package:flutter_bilibili/widgets/video_header.dart';
 import 'package:flutter_bilibili/widgets/video_view.dart';
 import 'package:flutter_bilibili/widgets/view_util.dart';
 
@@ -98,6 +99,27 @@ class _VideoDetailPageState extends State<VideoDetailPage>
     );
   }
 
+  /// 底部详情
+  Widget _buildDetailList() {
+    return ListView(
+      padding: EdgeInsets.all(0),
+      children: [
+        ...buildContents(),
+        ..._buildVideoList(),
+      ],
+    );
+  }
+
+  List<Widget> buildContents() {
+    return [
+      VideoHeader(owner: videoInfo!.owner),
+    ];
+  }
+
+  List<Widget> _buildVideoList() {
+    return [];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,6 +137,17 @@ class _VideoDetailPageState extends State<VideoDetailPage>
                   ),
                   _buildVideoView(),
                   _buildTabNavigation(),
+                  Flexible(
+                    child: TabBarView(
+                      controller: _controller,
+                      children: [
+                        _buildDetailList(),
+                        Container(
+                          child: Text('敬请期待...'),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               )
             : Container(),
