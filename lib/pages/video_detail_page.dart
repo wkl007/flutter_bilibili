@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bilibili/model/home_model.dart';
 import 'package:flutter_bilibili/widgets/appbar.dart';
+import 'package:flutter_bilibili/widgets/expandable_content.dart';
 import 'package:flutter_bilibili/widgets/hi_tab.dart';
 import 'package:flutter_bilibili/widgets/navigation_bar.dart';
 import 'package:flutter_bilibili/widgets/video_header.dart';
@@ -113,6 +114,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   List<Widget> buildContents() {
     return [
       VideoHeader(owner: videoInfo!.owner),
+      ExpandableContent(videoInfo: videoInfo!)
     ];
   }
 
