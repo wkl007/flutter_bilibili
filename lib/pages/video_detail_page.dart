@@ -1,11 +1,15 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bilibili/barrage/barrage_input.dart';
+import 'package:flutter_bilibili/barrage/barrage_switch.dart';
+import 'package:flutter_bilibili/barrage/hi_barrage.dart';
 import 'package:flutter_bilibili/http/core/hi_error.dart';
 import 'package:flutter_bilibili/http/dao/favorite_dao.dart';
 import 'package:flutter_bilibili/http/dao/like_dao.dart';
 import 'package:flutter_bilibili/model/home_model.dart';
 import 'package:flutter_bilibili/model/video_detail_model.dart';
+import 'package:flutter_bilibili/util/hi_constants.dart';
 import 'package:flutter_bilibili/util/toast.dart';
 import 'package:flutter_bilibili/widgets/appbar.dart';
 import 'package:flutter_bilibili/widgets/expandable_content.dart';
@@ -17,6 +21,7 @@ import 'package:flutter_bilibili/widgets/video_toolbar.dart';
 import 'package:flutter_bilibili/widgets/video_view.dart';
 import 'package:flutter_bilibili/widgets/view_util.dart';
 import 'package:flutter_bilibili/http/dao/video_detail_dao.dart';
+import 'package:flutter_overlay/flutter_overlay.dart';
 
 /// 视频详情页
 class VideoDetailPage extends StatefulWidget {
@@ -44,6 +49,12 @@ class _VideoDetailPageState extends State<VideoDetailPage>
 
   /// 视频列表
   List<VideoModel> videoList = [];
+
+  /// 弹幕 key
+  var _barrageKey = GlobalKey<HiBarrageState>();
+
+  /// 输入框显示
+  bool _inoutShowing = false;
 
   @override
   initState() {
@@ -135,6 +146,12 @@ class _VideoDetailPageState extends State<VideoDetailPage>
       videoInfo!.url!,
       cover: videoInfo!.cover!,
       overlayUI: videoAppBar(),
+      barrageUI: HiBarrage(
+        headers: HiConstants.headers(),
+        key: _barrageKey,
+        vid: videoInfo!.vid,
+        autoPlay: true,
+      ),
     );
   }
 
@@ -152,13 +169,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _tabBar(),
-            Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: Icon(
-                Icons.live_tv_rounded,
-                color: Colors.grey,
-              ),
-            )
+            _buildBarrageBtn()
           ],
         ),
       ),
@@ -175,6 +186,33 @@ class _VideoDetailPageState extends State<VideoDetailPage>
       }).toList(),
       controller: _controller,
     );
+  }
+
+  Widget _buildBarrageBtn() {
+    return BarrageSwitch(
+        inoutShowing: _inoutShowing,
+        onShowInput: () {
+          setState(() {
+            _inoutShowing = true;
+          });
+          HiOverlay.show(context, child: BarrageInput(
+            onTabClose: () {
+              setState(() {
+                _inoutShowing = false;
+              });
+            },
+          )).then((value) {
+            print('---input:$value');
+            _barrageKey.currentState!.send(value);
+          });
+        },
+        onBarrageSwitch: (open) {
+          if (open) {
+            _barrageKey.currentState!.play();
+          } else {
+            _barrageKey.currentState!.pause();
+          }
+        });
   }
 
   /// 底部详情

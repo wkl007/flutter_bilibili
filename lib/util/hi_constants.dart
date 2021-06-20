@@ -1,3 +1,5 @@
+import 'package:flutter_bilibili/http/dao/login_dao.dart';
+
 /// 常量
 class HiConstants {
   static String authTokenK = "auth-token";
@@ -14,10 +16,10 @@ class HiConstants {
       HiConstants.authTokenK: HiConstants.authTokenV,
       HiConstants.courseFlagK: HiConstants.courseFlagV
     };
-    /* var boardingPass = LoginDao.getBoardingPass();
+    var boardingPass = LoginDao.getBoardingPass();
     if (boardingPass != null) {
       header[LoginDao.BOARDING_PASS] = boardingPass;
-    } */
+    }
     return header;
   }
 }
