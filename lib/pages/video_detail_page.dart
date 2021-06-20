@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bilibili/model/home_model.dart';
 import 'package:flutter_bilibili/widgets/appbar.dart';
+import 'package:flutter_bilibili/widgets/hi_tab.dart';
 import 'package:flutter_bilibili/widgets/navigation_bar.dart';
 import 'package:flutter_bilibili/widgets/video_view.dart';
 import 'package:flutter_bilibili/widgets/view_util.dart';
@@ -49,11 +50,51 @@ class _VideoDetailPageState extends State<VideoDetailPage>
     super.dispose();
   }
 
+  /// 播放器
   Widget _buildVideoView() {
     return VideoView(
       videoInfo!.url!,
       cover: videoInfo!.cover!,
       overlayUI: videoAppBar(),
+    );
+  }
+
+  /// 底部
+  Widget _buildTabNavigation() {
+    return Material(
+      elevation: 5,
+      shadowColor: Colors.grey[100],
+      child: Container(
+        alignment: Alignment.centerLeft,
+        padding: EdgeInsets.only(left: 20),
+        height: 39,
+        color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _tabBar(),
+            Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: Icon(
+                Icons.live_tv_rounded,
+                color: Colors.grey,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// 选项卡
+  Widget _tabBar() {
+    return HiTab(
+      tabs.map<Tab>((name) {
+        return Tab(
+          text: name,
+        );
+      }).toList(),
+      controller: _controller,
     );
   }
 
@@ -73,6 +114,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
                     height: Platform.isAndroid ? 0 : 46,
                   ),
                   _buildVideoView(),
+                  _buildTabNavigation(),
                 ],
               )
             : Container(),

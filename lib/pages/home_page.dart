@@ -9,6 +9,7 @@ import 'package:flutter_bilibili/pages/video_detail_page.dart';
 import 'package:flutter_bilibili/util/color.dart';
 import 'package:flutter_bilibili/util/hi_state.dart';
 import 'package:flutter_bilibili/util/toast.dart';
+import 'package:flutter_bilibili/widgets/hi_tab.dart';
 import 'package:flutter_bilibili/widgets/loading_container.dart';
 import 'package:flutter_bilibili/widgets/navigation_bar.dart';
 import 'package:flutter_bilibili/widgets/view_util.dart';
@@ -186,16 +187,8 @@ class _HomePageState extends HiState<HomePage>
 
   /// 顶部 Tab
   Widget _tabBar() {
-    return TabBar(
-      controller: _controller,
-      isScrollable: true,
-      labelColor: Colors.black54,
-      indicator: UnderlineIndicator(
-        strokeCap: StrokeCap.square,
-        borderSide: BorderSide(color: primary, width: 3),
-        insets: EdgeInsets.only(left: 15, right: 15),
-      ),
-      tabs: categoryList.map<Tab>((tab) {
+    return HiTab(
+      categoryList.map<Tab>((tab) {
         return Tab(
           child: Padding(
             padding: EdgeInsets.only(left: 5, right: 5),
@@ -206,6 +199,11 @@ class _HomePageState extends HiState<HomePage>
           ),
         );
       }).toList(),
+      controller: _controller,
+      fontSize: 16,
+      borderWidth: 3,
+      unselectedLabelColor: Colors.black54,
+      insets: 13,
     );
   }
 
