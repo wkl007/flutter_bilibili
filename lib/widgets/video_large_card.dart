@@ -3,6 +3,8 @@ import 'package:flutter_bilibili/model/home_model.dart';
 import 'package:flutter_bilibili/navigator/hi_navigator.dart';
 import 'package:flutter_bilibili/util/format_util.dart';
 import 'package:flutter_bilibili/widgets/view_util.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_bilibili/provider/theme_provider.dart';
 
 /// 关联视频，视频列表卡片
 class VideoLargeCard extends StatelessWidget {
@@ -41,8 +43,8 @@ class VideoLargeCard extends StatelessWidget {
     );
   }
 
-  _buildContent() {
-    var textColor = Colors.grey;
+  _buildContent(ThemeProvider themeProvider) {
+    var textColor = themeProvider.isDark() ? Colors.grey : Colors.black87;
     return Expanded(
         child: Container(
       padding: EdgeInsets.only(top: 5, left: 8, bottom: 5),
@@ -126,6 +128,7 @@ class VideoLargeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var themeProvider = context.watch<ThemeProvider>();
     return GestureDetector(
       onTap: () {
         HiNavigator.getInstance().onJumpTo(
@@ -141,7 +144,7 @@ class VideoLargeCard extends StatelessWidget {
         child: Row(
           children: [
             _itemImage(context),
-            _buildContent(),
+            _buildContent(themeProvider),
           ],
         ),
       ),

@@ -1,7 +1,6 @@
 //hi_barrage.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bilibili/util/color.dart';
-import '';
 
 class BarrageSwitch extends StatefulWidget {
   ///初始时是否展开

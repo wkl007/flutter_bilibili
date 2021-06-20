@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bilibili/http/core/hi_error.dart';
 import 'package:flutter_bilibili/http/dao/home_dao.dart';
 import 'package:flutter_bilibili/model/home_model.dart';
-import 'package:flutter_bilibili/util/color.dart';
-import 'package:flutter_bilibili/util/toast.dart';
 import 'package:flutter_bilibili/widgets/hi_banner.dart';
 import 'package:flutter_bilibili/widgets/hi_base_tab_state.dart';
 import 'package:flutter_bilibili/widgets/video_card.dart';

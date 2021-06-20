@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bilibili/db/hi_cache.dart';
-import 'package:flutter_bilibili/http/core/hi_error.dart';
-import 'package:flutter_bilibili/http/core/hi_net.dart';
 import 'package:flutter_bilibili/http/dao/login_dao.dart';
-import 'package:flutter_bilibili/http/request/notice_request.dart';
 import 'package:flutter_bilibili/navigator/bottom_navigator.dart';
 import 'package:flutter_bilibili/navigator/hi_navigator.dart';
 import 'package:flutter_bilibili/pages/dark_model_page.dart';
-import 'package:flutter_bilibili/pages/home_page.dart';
 import 'package:flutter_bilibili/pages/login_page.dart';
 import 'package:flutter_bilibili/pages/notice_page.dart';
 import 'package:flutter_bilibili/pages/registration_page.dart';
 import 'package:flutter_bilibili/pages/video_detail_page.dart';
+import 'package:flutter_bilibili/provider/hi_provider.dart';
+import 'package:flutter_bilibili/provider/theme_provider.dart';
 import 'package:flutter_bilibili/util/color.dart';
 import 'package:flutter_bilibili/util/toast.dart';
+import 'package:provider/provider.dart';
 
 import 'model/home_model.dart';
 
@@ -45,10 +44,19 @@ class _BiliAppState extends State<BiliApp> {
                 ),
               );
 
-        return MaterialApp(
-          home: widget,
-          theme: ThemeData(
-            primarySwatch: white,
+        return MultiProvider(
+          providers: topProviders,
+          child: Consumer<ThemeProvider>(
+            builder: (BuildContext context, ThemeProvider themeProvider,
+                Widget? child) {
+              return MaterialApp(
+                home: widget,
+                theme: themeProvider.getTheme(),
+                darkTheme: themeProvider.getTheme(isDarkMode: true),
+                themeMode: themeProvider.getThemeMode(),
+                title: 'Flutter Bili',
+              );
+            },
           ),
         );
       },

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bilibili/provider/theme_provider.dart';
+import 'package:flutter_bilibili/util/color.dart';
 import 'package:flutter_bilibili/widgets/view_util.dart';
+import 'package:provider/provider.dart';
 
 enum StatusStyle { LIGHT_CONTENT, DARK_CONTENT }
 
@@ -33,8 +36,14 @@ class _NavigationBarState extends State<NavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    _color = widget.color;
-    _statusStyle = widget.statusStyle;
+    var themeProvider = context.watch<ThemeProvider>();
+    if (themeProvider.isDark()) {
+      _color = HiColor.dark_bg;
+      _statusStyle = StatusStyle.LIGHT_CONTENT;
+    } else {
+      _color = widget.color;
+      _statusStyle = widget.statusStyle;
+    }
     _statusBarInit();
 
     // 状态栏高度

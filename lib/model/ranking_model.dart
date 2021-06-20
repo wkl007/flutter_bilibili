@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter_bilibili/util/model_util.dart';
 
 import 'home_model.dart';

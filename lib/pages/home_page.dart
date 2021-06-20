@@ -6,14 +6,14 @@ import 'package:flutter_bilibili/navigator/hi_navigator.dart';
 import 'package:flutter_bilibili/pages/home_tab_page.dart';
 import 'package:flutter_bilibili/pages/profile_page.dart';
 import 'package:flutter_bilibili/pages/video_detail_page.dart';
-import 'package:flutter_bilibili/util/color.dart';
+import 'package:flutter_bilibili/provider/theme_provider.dart';
 import 'package:flutter_bilibili/util/hi_state.dart';
 import 'package:flutter_bilibili/util/toast.dart';
 import 'package:flutter_bilibili/widgets/hi_tab.dart';
 import 'package:flutter_bilibili/widgets/loading_container.dart';
 import 'package:flutter_bilibili/widgets/navigation_bar.dart';
 import 'package:flutter_bilibili/widgets/view_util.dart';
-import 'package:underline_indicator/underline_indicator.dart';
+import 'package:provider/provider.dart';
 
 /// 首页
 class HomePage extends StatefulWidget {
@@ -95,6 +95,13 @@ class _HomePageState extends HiState<HomePage>
       case AppLifecycleState.detached:
         break;
     }
+  }
+
+  /// 监听系统Dark Mode变化
+  @override
+  void didChangePlatformBrightness() {
+    context.read<ThemeProvider>().darModeChange();
+    super.didChangePlatformBrightness();
   }
 
   /// 加载数据

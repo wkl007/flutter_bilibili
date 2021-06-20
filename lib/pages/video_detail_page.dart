@@ -7,8 +7,10 @@ import 'package:flutter_bilibili/barrage/hi_barrage.dart';
 import 'package:flutter_bilibili/http/core/hi_error.dart';
 import 'package:flutter_bilibili/http/dao/favorite_dao.dart';
 import 'package:flutter_bilibili/http/dao/like_dao.dart';
+import 'package:flutter_bilibili/http/dao/video_detail_dao.dart';
 import 'package:flutter_bilibili/model/home_model.dart';
 import 'package:flutter_bilibili/model/video_detail_model.dart';
+import 'package:flutter_bilibili/util/color.dart';
 import 'package:flutter_bilibili/util/hi_constants.dart';
 import 'package:flutter_bilibili/util/toast.dart';
 import 'package:flutter_bilibili/widgets/appbar.dart';
@@ -20,8 +22,9 @@ import 'package:flutter_bilibili/widgets/video_large_card.dart';
 import 'package:flutter_bilibili/widgets/video_toolbar.dart';
 import 'package:flutter_bilibili/widgets/video_view.dart';
 import 'package:flutter_bilibili/widgets/view_util.dart';
-import 'package:flutter_bilibili/http/dao/video_detail_dao.dart';
 import 'package:flutter_overlay/flutter_overlay.dart';
+import 'package:flutter_bilibili/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 /// 视频详情页
 class VideoDetailPage extends StatefulWidget {
@@ -56,9 +59,13 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   /// 输入框显示
   bool _inoutShowing = false;
 
+  /// 主题
+  ThemeProvider? _themeProvider;
+
   @override
   initState() {
     super.initState();
+    _themeProvider = context.read<ThemeProvider>();
     videoInfo = widget.videoInfo;
     // 黑色状态栏，仅Android
     changeStatusBar(
@@ -159,18 +166,16 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   Widget _buildTabNavigation() {
     return Material(
       elevation: 5,
-      shadowColor: Colors.grey[100],
+      shadowColor:
+          _themeProvider!.isDark() ? HiColor.dark_bg : Colors.grey[100],
       child: Container(
         alignment: Alignment.centerLeft,
         padding: EdgeInsets.only(left: 20),
         height: 39,
-        color: Colors.white,
+        color: _themeProvider!.isDark() ? HiColor.dark_bg : Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _tabBar(),
-            _buildBarrageBtn()
-          ],
+          children: [_tabBar(), _buildBarrageBtn()],
         ),
       ),
     );

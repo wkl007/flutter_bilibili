@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bilibili/navigator/hi_navigator.dart';
 import 'package:flutter_bilibili/pages/favorite_page.dart';
 import 'package:flutter_bilibili/pages/home_page.dart';
 import 'package:flutter_bilibili/pages/profile_page.dart';
 import 'package:flutter_bilibili/pages/ranking_page.dart';
 import 'package:flutter_bilibili/util/color.dart';
-import 'package:flutter_bilibili/navigator/hi_navigator.dart';
 
 class BottomNavigator extends StatefulWidget {
   const BottomNavigator({Key? key}) : super(key: key);

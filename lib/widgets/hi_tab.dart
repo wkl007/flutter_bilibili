@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bilibili/provider/theme_provider.dart';
 import 'package:flutter_bilibili/util/color.dart';
 import 'package:underline_indicator/underline_indicator.dart';
+import 'package:provider/provider.dart';
 
 class HiTab extends StatelessWidget {
   /// 标签列表
@@ -33,7 +35,9 @@ class HiTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _unselectedLabelColor = unselectedLabelColor;
+    var themeProvider = context.watch<ThemeProvider>();
+    var _unselectedLabelColor =
+        themeProvider.isDark() ? Colors.white70 : unselectedLabelColor;
     return TabBar(
       controller: controller,
       isScrollable: true,

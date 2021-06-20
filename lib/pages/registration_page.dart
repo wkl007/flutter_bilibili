@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bilibili/http/core/hi_error.dart';
 import 'package:flutter_bilibili/http/dao/login_dao.dart';
 import 'package:flutter_bilibili/navigator/hi_navigator.dart';
+import 'package:flutter_bilibili/util/string_util.dart';
 import 'package:flutter_bilibili/util/toast.dart';
 import 'package:flutter_bilibili/widgets/appbar.dart';
 import 'package:flutter_bilibili/widgets/login_button.dart';
 import 'package:flutter_bilibili/widgets/login_effect.dart';
 import 'package:flutter_bilibili/widgets/login_input.dart';
-import 'package:flutter_bilibili/util/string_util.dart';
 
 /// 注册页
 class RegistrationPage extends StatefulWidget {
