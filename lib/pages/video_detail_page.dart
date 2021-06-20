@@ -10,6 +10,7 @@ import 'package:flutter_bilibili/widgets/expandable_content.dart';
 import 'package:flutter_bilibili/widgets/hi_tab.dart';
 import 'package:flutter_bilibili/widgets/navigation_bar.dart';
 import 'package:flutter_bilibili/widgets/video_header.dart';
+import 'package:flutter_bilibili/widgets/video_toolbar.dart';
 import 'package:flutter_bilibili/widgets/video_view.dart';
 import 'package:flutter_bilibili/widgets/view_util.dart';
 import 'package:flutter_bilibili/http/dao/video_detail_dao.dart';
@@ -36,7 +37,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   List<String> tabs = ['简介', '评论'];
 
   /// 详情信息
-  VideoDetailModel? videoDetailInfo;
+  VideoDetailModel? detailInfo;
 
   /// 视频列表
   List<VideoModel> videoList = [];
@@ -63,12 +64,12 @@ class _VideoDetailPageState extends State<VideoDetailPage>
     super.dispose();
   }
 
-  // 获取数据
+  /// 获取数据
   void _loadDetail() async {
     try {
       VideoDetailModel result = await VideoDetailDao.get(videoInfo!.vid);
       setState(() {
-        videoDetailInfo = result;
+        detailInfo = result;
         // 更新旧的数据
         videoInfo = result.videoInfo;
         videoList = result.videoList;
@@ -79,6 +80,15 @@ class _VideoDetailPageState extends State<VideoDetailPage>
       showWarnToast(e.message);
     }
   }
+
+  /// 点赞
+  _onLike() async {}
+
+  /// 取消点赞
+  _onUnLike() async {}
+
+  /// 收藏
+  _onFavorite() async {}
 
   /// 播放器
   Widget _buildVideoView() {
@@ -142,7 +152,14 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   List<Widget> buildContents() {
     return [
       VideoHeader(owner: videoInfo!.owner),
-      ExpandableContent(videoInfo: videoInfo!)
+      ExpandableContent(videoInfo: videoInfo!),
+      VideoToolBar(
+        videoInfo: videoInfo!,
+        detailInfo: detailInfo,
+        onLike: _onLike,
+        onUnLike: _onUnLike,
+        onFavorite: _onFavorite,
+      ),
     ];
   }
 
