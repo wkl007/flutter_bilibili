@@ -4,11 +4,14 @@ import 'package:flutter_bilibili/http/dao/home_dao.dart';
 import 'package:flutter_bilibili/model/home_model.dart';
 import 'package:flutter_bilibili/navigator/hi_navigator.dart';
 import 'package:flutter_bilibili/pages/home_tab_page.dart';
+import 'package:flutter_bilibili/pages/profile_page.dart';
+import 'package:flutter_bilibili/pages/video_detail_page.dart';
 import 'package:flutter_bilibili/util/color.dart';
 import 'package:flutter_bilibili/util/hi_state.dart';
 import 'package:flutter_bilibili/util/toast.dart';
 import 'package:flutter_bilibili/widgets/loading_container.dart';
 import 'package:flutter_bilibili/widgets/navigation_bar.dart';
+import 'package:flutter_bilibili/widgets/view_util.dart';
 import 'package:underline_indicator/underline_indicator.dart';
 
 /// 首页
@@ -22,7 +25,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends HiState<HomePage>
-    with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
+    with
+        AutomaticKeepAliveClientMixin,
+        TickerProviderStateMixin,
+        WidgetsBindingObserver {
+  /// 路由监听器
+  var listener;
+
   /// 控制器
   TabController? _controller;
 
@@ -42,17 +51,49 @@ class _HomePageState extends HiState<HomePage>
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance?.addObserver(this);
     _controller = TabController(
       length: categoryList.length,
       vsync: this,
     );
+    HiNavigator.getInstance().addListener(this.listener = (current, pre) {
+      // 当页面返回到首页恢复首页的状态栏样式
+      if (pre?.page is VideoDetailPage && !(current.page is ProfilePage)) {
+        var statusStyle = StatusStyle.DARK_CONTENT;
+        changeStatusBar(color: Colors.white, statusStyle: statusStyle);
+      }
+    });
     loadData();
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    HiNavigator.getInstance().removeListener(this.listener);
     _controller?.dispose();
     super.dispose();
+  }
+
+  /// 监听应用生命周期变化
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    switch (state) {
+      // 处于这种状态的应用程序应该假设它们可能在任何时候暂停。
+      case AppLifecycleState.inactive:
+        break;
+      // 从后台切换前台，界面可见
+      case AppLifecycleState.resumed:
+        // fix Android 压后台首页状态栏字体颜色变白，详情页状态栏字体变黑问题
+        changeStatusBar();
+        break;
+      // 界面不可见，后台
+      case AppLifecycleState.paused:
+        break;
+      // APP 结束时调用
+      case AppLifecycleState.detached:
+        break;
+    }
   }
 
   /// 加载数据
