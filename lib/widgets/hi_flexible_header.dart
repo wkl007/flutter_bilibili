@@ -32,22 +32,20 @@ class _HiFlexibleHeaderState extends State<HiFlexibleHeader> {
     super.initState();
     widget.controller.addListener(() {
       var offset = widget.controller.offset;
-      print('offset:$offset');
-      //算出padding变化系数0-1
+      // 算出padding变化系数0-1
       var dyOffset = (MAX_OFFSET - offset) / MAX_OFFSET;
-      //根据dyOffset算出具体的变化的padding值
+      // 根据dyOffset算出具体的变化的padding值
       var dy = dyOffset * (MAX_BOTTOM - MIN_BOTTOM);
-      //临界值保护
+      // 临界值保护
       if (dy > (MAX_BOTTOM - MIN_BOTTOM)) {
         dy = MAX_BOTTOM - MIN_BOTTOM;
       } else if (dy < 0) {
         dy = 0;
       }
       setState(() {
-        //算出实际的padding
+        // 算出实际的padding
         _dyBottom = MIN_BOTTOM + dy;
       });
-      print('_dyBottom:$_dyBottom');
     });
   }
 

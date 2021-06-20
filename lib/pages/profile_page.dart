@@ -63,11 +63,11 @@ class _ProfilePageState extends State<ProfilePage>
 
   _buildAppBar() {
     return SliverAppBar(
-      //扩展高度
+      // 扩展高度
       expandedHeight: 160,
-      //标题栏是否固定
+      // 标题栏是否固定
       pinned: true,
-      //定义股东空间
+      // 定义股东空间
       flexibleSpace: FlexibleSpaceBar(
         collapseMode: CollapseMode.parallax,
         titlePadding: EdgeInsets.only(left: 0),
@@ -80,7 +80,12 @@ class _ProfilePageState extends State<ProfilePage>
               ),
             ),
             Positioned.fill(child: HiBlur(sigma: 20)),
-            Positioned(bottom: 0, left: 0, right: 0, child: _buildProfileTab())
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: _buildProfileTab(),
+            ),
           ],
         ),
       ),

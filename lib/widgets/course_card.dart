@@ -27,7 +27,7 @@ class CourseCard extends StatelessWidget {
   /// 动态布局
   _buildCardList(BuildContext context) {
     var courseGroup = Map();
-    //将课程进行分组
+    // 将课程进行分组
     courseList.forEach((mo) {
       if (!courseGroup.containsKey(mo.group)) {
         courseGroup[mo.group] = [];
@@ -37,14 +37,16 @@ class CourseCard extends StatelessWidget {
     });
     return courseGroup.entries.map((e) {
       List list = e.value;
-      //根据卡片数量计算出每个卡片的宽度
+      // 根据卡片数量计算出每个卡片的宽度
       var width =
           (MediaQuery.of(context).size.width - 20 - (list.length - 1) * 5) /
               list.length;
       var height = width / 16 * 6;
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [...list.map((mo) => _buildCard(mo, width, height)).toSet()],
+        children: [
+          ...list.map((mo) => _buildCard(mo, width, height)).toSet(),
+        ],
       );
     });
   }
