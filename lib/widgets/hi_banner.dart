@@ -36,7 +36,7 @@ class HiBanner extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(6)),
           child: Image.network(
-            banner.cover,
+            banner.cover ?? '',
             fit: BoxFit.cover,
           ),
         ),

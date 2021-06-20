@@ -1,5 +1,6 @@
 import 'package:flutter_bilibili/http/core/hi_net.dart';
 import 'package:flutter_bilibili/http/request/notice_request.dart';
+import 'package:flutter_bilibili/model/notice_model.dart';
 
 /// 通知列表
 class NoticeDao {
@@ -8,5 +9,6 @@ class NoticeDao {
     NoticeRequest request = NoticeRequest();
     request.add('pageIndex', pageIndex).add('pageSize', pageSize);
     var result = await HiNet.getInstance().fire(request);
+    return NoticeModel.fromJson(result['data']);
   }
 }

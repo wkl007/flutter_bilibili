@@ -14,7 +14,8 @@ class HomeModel {
     if (bannerList != null) {
       for (final dynamic item in jsonRes['bannerList']!) {
         if (item != null) {
-          bannerList.add(BannerModel.fromJson(asT<Map<String, dynamic>>(item)!));
+          bannerList
+              .add(BannerModel.fromJson(asT<Map<String, dynamic>>(item)!));
         }
       }
     }
@@ -73,7 +74,7 @@ class BannerModel {
     required this.title,
     required this.subtitle,
     required this.url,
-    required this.cover,
+    this.cover,
     required this.createTime,
   });
 
@@ -84,7 +85,7 @@ class BannerModel {
         title: asT<String>(jsonRes['title'])!,
         subtitle: asT<String>(jsonRes['subtitle'])!,
         url: asT<String>(jsonRes['url'])!,
-        cover: asT<String>(jsonRes['cover'])!,
+        cover: jsonRes['cover'],
         createTime: asT<String>(jsonRes['createTime'])!,
       );
 
@@ -94,7 +95,7 @@ class BannerModel {
   String title;
   String subtitle;
   String url;
-  String cover;
+  String? cover;
   String createTime;
 
   @override
@@ -151,20 +152,20 @@ class VideoModel {
     required this.vid,
     this.title,
     this.tname,
-     this.url,
-     this.cover,
-     this.pubdate,
-     this.desc,
-     this.view,
-     this.duration,
-     this.owner,
-     this.reply,
-     this.favorite,
-     this.like,
-     this.coin,
-     this.share,
-     this.createTime,
-     this.size,
+    this.url,
+    this.cover,
+    this.pubdate,
+    this.desc,
+    this.view,
+    this.duration,
+    this.owner,
+    this.reply,
+    this.favorite,
+    this.like,
+    this.coin,
+    this.share,
+    this.createTime,
+    this.size,
   });
 
   factory VideoModel.fromJson(Map<String, dynamic> jsonRes) => VideoModel(
