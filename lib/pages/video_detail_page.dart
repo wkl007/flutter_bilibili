@@ -12,6 +12,7 @@ import 'package:flutter_bilibili/widgets/expandable_content.dart';
 import 'package:flutter_bilibili/widgets/hi_tab.dart';
 import 'package:flutter_bilibili/widgets/navigation_bar.dart';
 import 'package:flutter_bilibili/widgets/video_header.dart';
+import 'package:flutter_bilibili/widgets/video_large_card.dart';
 import 'package:flutter_bilibili/widgets/video_toolbar.dart';
 import 'package:flutter_bilibili/widgets/video_view.dart';
 import 'package:flutter_bilibili/widgets/view_util.dart';
@@ -202,7 +203,9 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   }
 
   List<Widget> _buildVideoList() {
-    return [];
+    return videoList
+        .map((VideoModel videoInfo) => VideoLargeCard(videoInfo: videoInfo))
+        .toList();
   }
 
   @override
