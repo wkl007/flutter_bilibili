@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bilibili/widgets/view_util.dart';
 
 enum StatusStyle { LIGHT_CONTENT, DARK_CONTENT }
 
@@ -25,8 +26,17 @@ class _NavigationBarState extends State<NavigationBar> {
   var _statusStyle;
   var _color;
 
+  /// 沉浸式状态栏
+  void _statusBarInit() {
+    changeStatusBar(color: _color, statusStyle: _statusStyle);
+  }
+
   @override
   Widget build(BuildContext context) {
+    _color = widget.color;
+    _statusStyle = widget.statusStyle;
+    _statusBarInit();
+
     // 状态栏高度
     double top = MediaQuery.of(context).padding.top;
 

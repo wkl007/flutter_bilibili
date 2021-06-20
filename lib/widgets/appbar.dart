@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bilibili/widgets/view_util.dart';
 
 /// 自定义顶部 appBar
-PreferredSizeWidget appBar(String title, String rightTitle, VoidCallback rightButtonClick,
+PreferredSizeWidget appBar(
+    String title, String rightTitle, VoidCallback rightButtonClick,
     {key}) {
   return AppBar(
     centerTitle: false,
@@ -29,5 +31,38 @@ PreferredSizeWidget appBar(String title, String rightTitle, VoidCallback rightBu
         ),
       )
     ],
+  );
+}
+
+/// 视频详情页 appBar
+Widget videoAppBar() {
+  return Container(
+    padding: EdgeInsets.only(right: 8),
+    decoration: BoxDecoration(gradient: blackLinearGradient(fromTop: true)),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        BackButton(
+          color: Colors.white,
+        ),
+        Row(
+          children: [
+            Icon(
+              Icons.live_tv_rounded,
+              color: Colors.white,
+              size: 20,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 12),
+              child: Icon(
+                Icons.more_vert_rounded,
+                color: Colors.white,
+                size: 20,
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
   );
 }

@@ -23,6 +23,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends HiState<HomePage>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
+  /// 控制器
   TabController? _controller;
 
   /// 类别列表
@@ -41,7 +42,10 @@ class _HomePageState extends HiState<HomePage>
   @override
   void initState() {
     super.initState();
-    _controller = TabController(length: categoryList.length, vsync: this);
+    _controller = TabController(
+      length: categoryList.length,
+      vsync: this,
+    );
     loadData();
   }
 
