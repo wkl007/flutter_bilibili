@@ -1,7 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bilibili/http/core/hi_error.dart';
 import 'package:flutter_bilibili/model/home_model.dart';
+import 'package:flutter_bilibili/model/video_detail_model.dart';
+import 'package:flutter_bilibili/util/toast.dart';
 import 'package:flutter_bilibili/widgets/appbar.dart';
 import 'package:flutter_bilibili/widgets/expandable_content.dart';
 import 'package:flutter_bilibili/widgets/hi_tab.dart';
@@ -9,6 +12,7 @@ import 'package:flutter_bilibili/widgets/navigation_bar.dart';
 import 'package:flutter_bilibili/widgets/video_header.dart';
 import 'package:flutter_bilibili/widgets/video_view.dart';
 import 'package:flutter_bilibili/widgets/view_util.dart';
+import 'package:flutter_bilibili/http/dao/video_detail_dao.dart';
 
 /// 视频详情页
 class VideoDetailPage extends StatefulWidget {
@@ -31,6 +35,12 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   /// 标签列表
   List<String> tabs = ['简介', '评论'];
 
+  /// 详情信息
+  VideoDetailModel? videoDetailInfo;
+
+  /// 视频列表
+  List<VideoModel> videoList = [];
+
   @override
   initState() {
     super.initState();
@@ -44,12 +54,30 @@ class _VideoDetailPageState extends State<VideoDetailPage>
       length: tabs.length,
       vsync: this,
     );
+    _loadDetail();
   }
 
   @override
   void dispose() {
     _controller?.dispose();
     super.dispose();
+  }
+
+  // 获取数据
+  void _loadDetail() async {
+    try {
+      VideoDetailModel result = await VideoDetailDao.get(videoInfo!.vid);
+      setState(() {
+        videoDetailInfo = result;
+        // 更新旧的数据
+        videoInfo = result.videoInfo;
+        videoList = result.videoList;
+      });
+    } on NeedAuth catch (e) {
+      showWarnToast(e.message);
+    } on HiNetError catch (e) {
+      showWarnToast(e.message);
+    }
   }
 
   /// 播放器
