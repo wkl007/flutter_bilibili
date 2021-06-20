@@ -63,33 +63,4 @@ class _HomeTabPageState
   List<VideoModel> parseList(HomeModel result) {
     return result.videoList;
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: loadData,
-      color: primary,
-      child: MediaQuery.removePadding(
-        removeTop: true,
-        context: context,
-        child: HiNestedScrollView(
-          controller: scrollController,
-          itemCount: dataList.length,
-          padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-          headers: [
-            if (widget.bannerList != null)
-              Padding(
-                padding: EdgeInsets.only(bottom: 8),
-                child: _banner(widget.bannerList!),
-              ),
-          ],
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, childAspectRatio: 0.95),
-          itemBuilder: (BuildContext context, int index) {
-            return VideoCard(videoInfo: dataList[index]);
-          },
-        ),
-      ),
-    );
-  }
 }

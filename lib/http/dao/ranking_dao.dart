@@ -9,7 +9,7 @@ class RankingDao {
     request
         .add('sort', sort)
         .add('pageIndex', pageIndex)
-        .add('pageSize', pageSize)
+        .add('pageSize', pageSize);
     var result = await HiNet.getInstance().fire(request);
     return RankingModel.fromJson(result['data']);
   }
