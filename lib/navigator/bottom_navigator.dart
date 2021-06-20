@@ -5,6 +5,7 @@ import 'package:flutter_bilibili/pages/home_page.dart';
 import 'package:flutter_bilibili/pages/profile_page.dart';
 import 'package:flutter_bilibili/pages/ranking_page.dart';
 import 'package:flutter_bilibili/util/color.dart';
+import 'package:flutter_bilibili/util/toast.dart';
 
 class BottomNavigator extends StatefulWidget {
   const BottomNavigator({Key? key}) : super(key: key);
@@ -26,6 +27,9 @@ class _BottomNavigatorState extends State<BottomNavigator> {
   /// 标签页面
   List<Widget> _pages = [];
 
+  ///上次点击时间
+  DateTime? _lastPressedAt;
+
   static int initialPage = 0;
   final PageController _controller = PageController(initialPage: initialPage);
 
@@ -43,6 +47,18 @@ class _BottomNavigatorState extends State<BottomNavigator> {
       //控制选中第一个tab
       _currentIndex = index;
     });
+  }
+
+  /// 退出 app
+  Future<bool> exitApp() async {
+    if (_lastPressedAt == null ||
+        DateTime.now().difference(_lastPressedAt!) > Duration(seconds: 2)) {
+      showToast('再按一次退出应用');
+      // 两次点击间隔超过2秒则重新计时
+      _lastPressedAt = DateTime.now();
+      return Future.value(false);
+    }
+    return Future.value(true);
   }
 
   /// 底部 Item
@@ -71,11 +87,14 @@ class _BottomNavigatorState extends State<BottomNavigator> {
     }
 
     return Scaffold(
-      body: PageView(
-        controller: _controller,
-        children: _pages,
-        onPageChanged: (index) => _onJumpTo(index, pageChange: true),
-        physics: NeverScrollableScrollPhysics(),
+      body: WillPopScope(
+        onWillPop: exitApp,
+        child: PageView(
+          controller: _controller,
+          children: _pages,
+          onPageChanged: (index) => _onJumpTo(index, pageChange: true),
+          physics: NeverScrollableScrollPhysics(),
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,

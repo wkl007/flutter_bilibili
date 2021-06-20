@@ -43,7 +43,7 @@ class _HomeTabPageState
             ),
         ],
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, childAspectRatio: 0.95),
+            crossAxisCount: 2, childAspectRatio: 0.82),
         itemBuilder: (BuildContext context, int index) {
           return VideoCard(videoInfo: dataList[index]);
         },
