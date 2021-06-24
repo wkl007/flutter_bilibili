@@ -1,16 +1,36 @@
 # flutter_bilibili
 
-Flutter 核心技术实战哔哩哔哩 APP
+慕课网 [Flutter高级进阶实战 仿哔哩哔哩APP](https://coding.imooc.com/class/487.html) ，基于 `Flutter` 支持 `Android` 与 `iOS` 平台。
 
-## Getting Started
+## 目录
 
-This project is a starting point for a Flutter application.
+- [下载](#下载)
+- [真机预览](#真机预览)
+- [功能与特性](#功能与特性)
+- [App 架构](#App架构)
+- [运行调试](#运行调试)
 
-A few resources to get you started if this is your first Flutter project:
+## 下载
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+![qr_code](https://apk-1256738511.cos.ap-chengdu.myqcloud.com/FlutterBilibili/images/qr_code.png)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 真机预览
+
+![preview](https://coding.imooc.com/static/module/class/content/img/487/section1-main1.png)
+
+## 功能与特性
+
+![feature](https://apk-1256738511.cos.ap-chengdu.myqcloud.com/FlutterBilibili/images/feature.png)
+
+## App架构
+
+![architecture](https://apk-1256738511.cos.ap-chengdu.myqcloud.com/FlutterBilibili/images/architecture.png)
+
+## 运行调试
+
+1. 准备 `Flutter` 环境,可参考: [getting-started](<https://flutter-io.cn/docs/get-started/install>)。
+2. Clone [flutter_bilibili](https://github.com/wkl007/flutter_bilibili.git) ,然后终端进入项目根目录。
+3. 终端运行 `flutter packages get`。
+4. 然后运行 `flutter run`。
+5. 打包安卓包运行 `flutter build apk`。
+
