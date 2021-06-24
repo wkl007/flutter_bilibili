@@ -20,11 +20,11 @@
 
 ## 功能与特性
 
-![feature](https://raw.githubusercontent.com/wkl007/flutter_bilibili/master/screenshot/feature.png)
+![feature](https://raw.githubusercontent.com/wkl007/flutter_bilibili/master/screenshots/feature.png)
 
 ## App架构
 
-![architecture](https://raw.githubusercontent.com/wkl007/flutter_bilibili/master/screenshot/architecture.png)
+![architecture](https://raw.githubusercontent.com/wkl007/flutter_bilibili/master/screenshots/architecture.png)
 
 ## 运行调试
 
