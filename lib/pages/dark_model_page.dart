@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bilibili/provider/theme_provider.dart';
 import 'package:flutter_bilibili/util/color.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_bilibili/provider/theme_provider.dart';
 
 /// 暗黑主题
 class DarkModelPage extends StatefulWidget {

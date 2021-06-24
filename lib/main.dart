@@ -10,7 +10,6 @@ import 'package:flutter_bilibili/pages/registration_page.dart';
 import 'package:flutter_bilibili/pages/video_detail_page.dart';
 import 'package:flutter_bilibili/provider/hi_provider.dart';
 import 'package:flutter_bilibili/provider/theme_provider.dart';
-import 'package:flutter_bilibili/util/color.dart';
 import 'package:flutter_bilibili/util/toast.dart';
 import 'package:provider/provider.dart';
 

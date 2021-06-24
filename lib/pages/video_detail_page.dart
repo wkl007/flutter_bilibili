@@ -10,6 +10,7 @@ import 'package:flutter_bilibili/http/dao/like_dao.dart';
 import 'package:flutter_bilibili/http/dao/video_detail_dao.dart';
 import 'package:flutter_bilibili/model/home_model.dart';
 import 'package:flutter_bilibili/model/video_detail_model.dart';
+import 'package:flutter_bilibili/provider/theme_provider.dart';
 import 'package:flutter_bilibili/util/color.dart';
 import 'package:flutter_bilibili/util/hi_constants.dart';
 import 'package:flutter_bilibili/util/toast.dart';
@@ -23,7 +24,6 @@ import 'package:flutter_bilibili/widgets/video_toolbar.dart';
 import 'package:flutter_bilibili/widgets/video_view.dart';
 import 'package:flutter_bilibili/widgets/view_util.dart';
 import 'package:flutter_overlay/flutter_overlay.dart';
-import 'package:flutter_bilibili/provider/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 /// 视频详情页

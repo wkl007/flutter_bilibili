@@ -9,9 +9,9 @@ import 'package:flutter_bilibili/pages/video_detail_page.dart';
 import 'package:flutter_bilibili/provider/theme_provider.dart';
 import 'package:flutter_bilibili/util/color.dart';
 import 'package:flutter_bilibili/util/format_util.dart';
+import 'package:provider/provider.dart';
 
 import 'navigation_bar.dart';
-import 'package:provider/provider.dart';
 
 /// 带缓存的图片
 Widget cachedImage(String url, {double? width, double? height}) {
