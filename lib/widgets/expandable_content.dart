@@ -19,10 +19,10 @@ class _ExpandableContentState extends State<ExpandableContent>
       CurveTween(curve: Curves.easeIn);
   bool _expand = false;
 
-  //用来管理Animation
+  /// 用来管理Animation
   AnimationController? _controller;
 
-  //生成动画高度的值
+  /// 生成动画高度的值
   Animation<double>? _heightFactor;
 
   @override
@@ -43,7 +43,7 @@ class _ExpandableContentState extends State<ExpandableContent>
     super.dispose();
   }
 
-  _buildTitle() {
+  Widget _buildTitle() {
     return InkWell(
       onTap: _toggleExpand,
       child: Row(
@@ -65,7 +65,7 @@ class _ExpandableContentState extends State<ExpandableContent>
                 : Icons.keyboard_arrow_down_sharp,
             color: Colors.grey,
             size: 16,
-          )
+          ),
         ],
       ),
     );
@@ -75,16 +75,16 @@ class _ExpandableContentState extends State<ExpandableContent>
     setState(() {
       _expand = !_expand;
       if (_expand) {
-        //执行动画
+        // 执行动画
         _controller?.forward();
       } else {
-        //反向执行动画
+        // 反向执行动画
         _controller?.reverse();
       }
     });
   }
 
-  _buildInfo() {
+  Widget _buildInfo() {
     var style = TextStyle(fontSize: 12, color: Colors.grey);
     var dateStr = widget.videoInfo.createTime!.length > 10
         ? widget.videoInfo.createTime!.substring(5, 10)
@@ -99,7 +99,7 @@ class _ExpandableContentState extends State<ExpandableContent>
     );
   }
 
-  _buildDes() {
+  Widget _buildDes() {
     var child = _expand
         ? Text(
             widget.videoInfo.desc ?? '',

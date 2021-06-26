@@ -8,7 +8,7 @@ class CourseCard extends StatelessWidget {
 
   const CourseCard({Key? key, required this.courseList}) : super(key: key);
 
-  _buildTitle() {
+  Widget _buildTitle() {
     return Container(
         padding: EdgeInsets.only(bottom: 10),
         child: Row(
@@ -51,7 +51,7 @@ class CourseCard extends StatelessWidget {
     });
   }
 
-  _buildCard(Course course, double width, double height) {
+  Widget _buildCard(Course course, double width, double height) {
     return InkWell(
       onTap: () {
         //todo

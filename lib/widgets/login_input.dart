@@ -25,14 +25,16 @@ class LoginInput extends StatefulWidget {
   /// 聚焦事件
   final ValueChanged<bool>? focusChanged;
 
-  const LoginInput(this.title, this.hint,
-      {Key? key,
-      this.lineStretch = false,
-      this.obscureText = false,
-      this.keyboardType,
-      this.onChanged,
-      this.focusChanged})
-      : super(key: key);
+  const LoginInput(
+    this.title,
+    this.hint, {
+    Key? key,
+    this.lineStretch = false,
+    this.obscureText = false,
+    this.keyboardType,
+    this.onChanged,
+    this.focusChanged,
+  }) : super(key: key);
 
   @override
   _LoginInputState createState() => _LoginInputState();

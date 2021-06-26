@@ -64,9 +64,9 @@ class ThemeProvider extends ChangeNotifier {
       errorColor: isDarkMode ? HiColor.dark_red : HiColor.red,
       primaryColor: isDarkMode ? HiColor.dark_bg : white,
       accentColor: isDarkMode ? primary[50] : white,
-      //Tab指示器的颜色
+      // Tab指示器的颜色
       indicatorColor: isDarkMode ? primary[50] : white,
-      //页面背景色
+      // 页面背景色
       scaffoldBackgroundColor: isDarkMode ? HiColor.dark_bg : white,
     );
     return themeData;

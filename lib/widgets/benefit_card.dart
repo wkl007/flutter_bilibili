@@ -10,7 +10,7 @@ class BenefitCard extends StatelessWidget {
 
   const BenefitCard({Key? key, required this.benefitList}) : super(key: key);
 
-  _buildTitle() {
+  Widget _buildTitle() {
     return Container(
       padding: EdgeInsets.only(bottom: 10),
       child: Row(
@@ -27,7 +27,7 @@ class BenefitCard extends StatelessWidget {
     );
   }
 
-  _buildCard(BuildContext context, Benefit benefit, double width) {
+  Widget _buildCard(BuildContext context, Benefit benefit, double width) {
     return InkWell(
       onTap: () {
         //todo
@@ -62,7 +62,7 @@ class BenefitCard extends StatelessWidget {
     );
   }
 
-  _buildBenefit(BuildContext context) {
+  Widget _buildBenefit(BuildContext context) {
     //根据卡片数量计算出每个卡片的宽度
     var width = (MediaQuery.of(context).size.width -
             20 -

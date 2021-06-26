@@ -33,7 +33,7 @@ class NoticeCard extends StatelessWidget {
     );
   }
 
-  _buildContents() {
+  Widget _buildContents() {
     return Flexible(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

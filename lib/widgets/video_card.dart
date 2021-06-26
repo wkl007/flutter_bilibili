@@ -6,6 +6,7 @@ import 'package:flutter_bilibili/util/format_util.dart';
 import 'package:flutter_bilibili/widgets/view_util.dart';
 import 'package:provider/provider.dart';
 
+/// 视频卡片
 class VideoCard extends StatelessWidget {
   final VideoModel videoInfo;
 

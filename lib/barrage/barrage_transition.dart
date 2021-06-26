@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-///弹幕移动动效
+/// 弹幕移动动效
 class BarrageTransition extends StatefulWidget {
   final Widget child;
   final Duration duration;
   final ValueChanged onComplete;
 
-  const BarrageTransition(
-      {Key? key,
-      required this.duration,
-      required this.onComplete,
-      required this.child})
-      : super(key: key);
+  const BarrageTransition({
+    Key? key,
+    required this.duration,
+    required this.onComplete,
+    required this.child,
+  }) : super(key: key);
 
   @override
   BarrageTransitionState createState() => BarrageTransitionState();
@@ -25,7 +25,7 @@ class BarrageTransitionState extends State<BarrageTransition>
   @override
   void initState() {
     super.initState();
-    //创建动画控制器
+    // 创建动画控制器
     _animationController =
         AnimationController(duration: widget.duration, vsync: this)
           ..addStatusListener((status) {
@@ -34,11 +34,17 @@ class BarrageTransitionState extends State<BarrageTransition>
               widget.onComplete('');
             }
           });
-    //定义从右向左的补间动画
+    // 定义从右向左的补间动画
     var begin = Offset(1.0, 0);
     var end = Offset(-1.0, 0);
     _animation = Tween(begin: begin, end: end).animate(_animationController);
     _animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -47,11 +53,5 @@ class BarrageTransitionState extends State<BarrageTransition>
       position: _animation,
       child: widget.child,
     );
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
   }
 }

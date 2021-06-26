@@ -48,10 +48,10 @@ abstract class HiBaseTabState<M, L, T extends StatefulWidget> extends HiState<T>
     super.dispose();
   }
 
-  ///获取对应页码的数据
+  /// 获取对应页码的数据
   Future<M> getData(int pageIndex);
 
-  ///从MO中解析出list数据
+  /// 从MO中解析出list数据
   List<L> parseList(M result);
 
   /// 加载数据

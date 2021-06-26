@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:web_socket_channel/io.dart';
 
-import '../model/barrage_model.dart';
+import 'barrage_model.dart';
 
-///负责与后端进行websocket通信
+/// 负责与后端进行websocket通信
 class HiSocket implements ISocket {
   final Map<String, dynamic> headers;
   static const _URL = 'wss://api.devio.org/uapi/fa/barrage/';
   IOWebSocketChannel? _channel;
   ValueChanged<List<BarrageModel>>? _callBack;
 
-  ///心跳间隔秒数，根据服务器实际timeout时间来调整，这里Nginx服务器的timeout为60
+  /// 心跳间隔秒数，根据服务器实际timeout时间来调整，这里Nginx服务器的timeout为60
   int _intervalSeconds = 50;
 
   HiSocket(this.headers);
@@ -46,7 +46,7 @@ class HiSocket implements ISocket {
     return this;
   }
 
-  ///处理服务端的返回
+  /// 处理服务端的返回
   void _handleMessage(message) {
     print('received: $message');
     var result = BarrageModel.fromJsonString(message);
@@ -57,15 +57,15 @@ class HiSocket implements ISocket {
 }
 
 abstract class ISocket {
-  ///和服务器建立连接
+  /// 和服务器建立连接
   ISocket open(String vid);
 
-  ///发送弹幕
+  /// 发送弹幕
   ISocket send(String message);
 
-  ///关闭连接
+  /// 关闭连接
   void close();
 
-  ///接受弹幕
+  /// 接受弹幕
   ISocket listen(ValueChanged<List<BarrageModel>> callBack);
 }
